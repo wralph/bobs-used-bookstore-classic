@@ -16,15 +16,6 @@
                 <label class="visually-hidden" for="OrderStatusSelect">Reference data type</label>
                 @Html.EnumDropDownListFor(a => a.Filters.OrderStatusFilter, "All Order Statuses", new { @class = "form-select" })
             </div>
-            @*
-                            <div class="col-12">
-                    <label class="visually-hidden" for="OrderStatusSelect">Reference data type</label>
-                    <select asp-for="Filters.OrderStatusFilter" asp-items="Html.GetEnumSelectList<OrderStatus>()" class="form-select">
-                        <option value="">All Order Statuses</option>
-                    </select>
-                </div>
-            *@
-
             <div class="col-12">
                 <label class="visually-hidden" for="OrderStatusSelect">Order date from</label>
                 @Html.TextBoxFor(a => a.Filters.OrderDateFromFilter, new { @class = "form-control", @type = "date" })
