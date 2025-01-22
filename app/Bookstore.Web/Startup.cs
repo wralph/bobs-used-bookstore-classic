@@ -1,25 +1,47 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
 
 namespace Bookstore.Web
 {
-    public class Startup
+    public class Program
     {
-        public void ConfigureServices(IServiceCollection services)
+        public static void Main(string[] args)
         {
-            // Configure services here
-        }
+            var builder = WebApplication.CreateBuilder(args);
 
-        public void Configure(IApplicationBuilder app, IHostEnvironment env)
-        {
-            LoggingSetup.ConfigureLogging();
+            // Add services to the container.
+            builder.Services.AddControllersWithViews();
 
-            ConfigurationSetup.ConfigureConfiguration();
+            var app = builder.Build();
 
-            DependencyInjectionSetup.ConfigureDependencyInjection(app);
+            // Configure the HTTP request pipeline.
+            if (!app.Environment.IsDevelopment())
+            {
+                app.UseExceptionHandler("/Home/Error");
+                app.UseHsts();
+            }
 
-            AuthenticationConfig.ConfigureAuthentication(app);
+            app.UseHttpsRedirection();
+            app.UseStaticFiles();
+            app.UseRouting();
+            app.UseAuthorization();
+
+            app.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");
+
+            // Configure logging
+            builder.Logging.AddConfiguration(builder.Configuration.GetSection("Logging"));
+            builder.Logging.AddConsole();
+            builder.Logging.AddDebug();
+
+            // Configure authentication
+            // TODO: Add authentication configuration here
+
+            app.Run();
         }
     }
 }
