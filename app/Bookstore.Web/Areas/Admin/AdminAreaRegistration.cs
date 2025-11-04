@@ -1,24 +1,16 @@
-﻿using System.Web.Mvc;
+// This file is no longer needed in ASP.NET Core.
+// Area routing should be configured in Program.cs or Startup.cs using:
+// app.UseEndpoints(endpoints => {
+//     endpoints.MapAreaControllerRoute(
+//         "Admin_default",
+//         "Admin",
+//         "Admin/{controller=Home}/{action=Index}/{id?}");
+// });
+
+using Microsoft.AspNetCore.Mvc;
 
 namespace Bookstore.Web.Areas
 {
-    public class AdminAreaRegistration : AreaRegistration 
-    {
-        public override string AreaName 
-        {
-            get 
-            {
-                return "Admin";
-            }
-        }
-
-        public override void RegisterArea(AreaRegistrationContext context) 
-        {
-            context.MapRoute(
-                "Admin_default",
-                "Admin/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }, namespaces: new[] { "Bookstore.Web.Areas.Admin.Controllers" }
-            );
-        }
-    }
+    // AreaRegistration is not available in ASP.NET Core
+    // Area routing is configured in the main application startup
 }
